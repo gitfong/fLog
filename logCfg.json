@@ -1,5 +1,5 @@
 {
 	"level" : 0,
-	"pathName" : "./",
+	"pathName" : "./logs/",
 	"flushImmediately" : true
 }

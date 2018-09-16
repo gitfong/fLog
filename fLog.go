@@ -48,6 +48,7 @@ func New() *FLogger {
 	cfg := getCfg()
 
 	if cfg.Level > levelFatal || cfg.Level < levelDebug {
+		fmt.Println("cfg.Level wrong:",cfg.Level)
 		return nil
 	}
 
@@ -57,6 +58,7 @@ func New() *FLogger {
 	flog.flushImmediately = cfg.FlushImmediately
 	err := flog.makeOutFile()
 	if err != nil {
+		fmt.Println("makeOutFile err:",err)
 		return nil
 	}
 
@@ -81,7 +83,6 @@ func getCfg() jsonCfg {
 }
 
 func (l *FLogger) makeOutFile() error {
-	fmt.Println("on makeoutfile")
 	if l.fileHandle != nil{
 		l.fileHandle.Sync()
 		l.fileHandle.Close()
@@ -93,6 +94,7 @@ func (l *FLogger) makeOutFile() error {
 	//file,err := os.Create(fullName)
 	file, err := os.OpenFile(fullName, os.O_CREATE|os.O_APPEND|os.O_RDWR, os.ModePerm)
 	if err != nil {
+		fmt.Printf("openfile fileName:%s, fullName:%s err:%v\n", fileName,fullName, err)
 		return err
 	}
 
